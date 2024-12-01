@@ -6,7 +6,9 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \title{Abgabe 1 für Computergestützte Methoden}
-\author{Gruppe 33, \\ Luka Ben Lüttich 4186039, Vitali Wolf 4108324, Finn Kastien 4260542}
+
+\author{Gruppe 33, 
+\\ Luka Ben Lüttich 4186039, Vitali Wolf 4108324, Finn Kastien 4260542}
 \date{02.12.2024}
 
 \begin{document}
@@ -62,7 +64,7 @@ Anschließend passen wir den Datentyp für die jeweiligen Attribute an und wähl
     \caption{Unsortierte Tabelle}
     \label{Bild1}
 \end{figure}
-Zuletzt filtern wir unsere Tabelle noch, damit wir ausschließlich die für unsere Gruppe relevanten Daten haben und sortieren die Spalte „average temperature“ absteigend, um die höchste durchschnittliche Temperatur ganz oben zu erhalten (siehe Abbildung \ref{Bild2}). \\
+Zuletzt filtern wir unsere Tabelle noch, damit wir ausschließlich die für unsere Gruppe relevanten Daten haben und sortieren die Spalte „average temperature“ absteigend, um die höchste durchschnittliche Temperatur ganz oben zu erhalten (siehe Abbildung \ref{Bild2}). \\ \\
 \subsubsection{Ergebnis}
  Das Ergebnis sind 83 Grad Fahrenheit. Umgerechnet in Grad Celsius mit der Formel (83 °F -  32) × 5:9 erhalten wir 28,33 Grad Celsius.
 \begin{figure}[h]
@@ -71,11 +73,11 @@ Zuletzt filtern wir unsere Tabelle noch, damit wir ausschließlich die für unse
     \caption{Nach höchster durchschnittlicher Temperatur sortierte Tabelle}
     \label{Bild2}
 \end{figure}
-
+\newpage
 \subsection{Datenhaltung}
 \subsubsection{Entwurf Schema Datenbank}
 Wir erstellen nun ein neues Datenbankschema, um mit den vorhandenen Daten weiterzuarbeiten. Hierfür richten wir eine Datenbank ein, die wir „COMETAbgabe1“ nennen, und erstellen darin zwei Tabellen. \\
-In der ersten Tabelle haben wir die Attribute „ID“ und „Station“, mit „ID“ als Primärschlüssel und „Station“ als Nichtschlüssel-Attribut, welches vom Primärschlüssel abhängig ist. Diese Tabelle nennen wir „Stationen“.
+In der ersten Tabelle haben wir die Attribute „ID“ und „Station“, mit „ID“ als Primärschlüssel und „Station“ als Nichtschlüssel-Attribut, welches vom Primär-\\schlüssel abhängig ist. Diese Tabelle nennen wir „Stationen“.
 Die zweite nennen wir „Verleih“ und ordnen dieser die Attribute „ID, group, station, weather\_date, day\_of\_year, day\_of\_week, month\_of\_year, precipitation, windspeed, min\_temperature, avergae\_temperature, max\_temperature, count“ zu. „ID“ ist hier wieder der Primärschlüssel.\\ In unserem Datensatz sind nur atomare Werte, weshalb die erste Normalform erfüllt ist. Also schauen wir ob die zweite Normalform auch erfüllt ist. Wenn die erste Normalform erfüllt ist und jedes Nichtschlüsselattribut nur von dem Primärschlüssel selbst abhängig ist, nicht von einer Teilmenge dessen, dann ist die zweite Normalform ebenfalls erfüllt.
 \subsubsection{Umsetzung in SQL}
 Unsere Datenbank und Tabellen definieren wir mit dem DDL-Teil von SQL, mit folgenden Statements:\\ \\
@@ -98,7 +100,7 @@ min\_temperature INTEGER, \\
 average\_temperature INTEGER, \\
 max\_temperature INTEGER, \\
 count INTEGER, \\
-); \\ \\
+); \\ \\ \\
 Als nächstes importieren wir die .csv Datei in SQLite. Dafür nutzen wir das DBMS und klicken auf „Datei“, „Import“ und dann auf „Tabelle aus CSV Datei“. Folgendes Statement nutzen wir um die Daten in die passenden Tabellen zu importieren: \\ \\
 INSERT INTO Stationen (Station) \\
 SELECT DISTINCT station \\
@@ -110,9 +112,9 @@ INSERT INTO Verleih (group, station, weather\_date, day\_of\_year, day\_of\_mont
 SELECT ((MAX(average\_temperature) -32)*5/9) \\
 AS max\_average\_temperature \\
 FROM Verleih \\
-WHERE Name = “ Broadway & W 56 St “ AND average\_temperature != “NA“; \\ \\
-Wir erhalten das selbe Ergebnis, wie mit der Tabellenkalkulation, von 28,33 Grad Celsius als höchste Durchschnittstemperatur.
-
+WHERE Name = “ Broadway & W 56 St “ AND average\_temperature != “NA“;\\ \\
+Wir erhalten das selbe Ergebnis, wie mit der Tabellenkalkulation, von 28,33 Grad Celsius als höchste Durchschnittstemperatur.\\ \\ \\
+Link zu LATEX-Code: \\https://github.com/LukaL03/COMET/blob/main/LATEXCode
 \newpage
 \begin{thebibliography}{1}
 \bibitem{1}
