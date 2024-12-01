@@ -1,0 +1,123 @@
+\documentclass{article}
+
+\usepackage{ngerman}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\title{Abgabe 1 für Computergestützte Methoden}
+\author{Gruppe 33, \\ Luka Ben Lüttich 4186039, Vitali Wolf 4108324, Finn Kastien 4260542}
+\date{02.12.2024}
+
+\begin{document}
+
+\maketitle
+\tableofcontents 
+\newpage
+\section{Der zentrale Grenzwertsatz}
+Der zentrale Grenzwertsatz (ZGS) ist ein fundamentales Resultat der Wahrscheinlichkeitstheorie, das die Verteilung von Summen unabhängiger, identisch
+verteilter ($i.i.d.$) Zufallsvariablen (ZV) beschreibt. Er besagt, dass unter bestimmten Voraussetzungen die Summe einer großen Anzahl solcher ZV annähernd
+normalverteilt ist, unabhängig von der Verteilung der einzelnen ZV. Dies ist besonders nützlich, da die Normalverteilung gut untersucht und mathematisch
+handhabbar ist.
+
+\subsection{Aussage}
+Sei $X_1, X_2,\ldots, X_n$ eine Folge von $i.i.d.$ ZV mit dem Erwartungswert $\mu= \mathbb{E}(X_i)$ und der Varianz $\sigma^2$  =  Var$(X_i)$, wobei $0  <  \sigma^2  <  \infty$ gelte. Dann konvergiert die standardisierte Summe $Z_n$ dieser ZV für $n \rightarrow \infty$ in Verteilung gegen eine Standardnormalverteilung:\footnote{Der zentrale Grenzwertsatz hat verschiedene Verallgemeinerungen. Eine davon ist der
+\textbf{Lindeberg-Feller-Zentrale-Grenzwertsatz}\cite[Seite 328]{1}, der schwächere Bedingungen an die Unabhängigkeit und die identische Verteilung der ZV stellt.}
+
+\begin{equation}
+\label{formel1}
+\textit{Z}_n = \frac{\sum\nolimits_{i=1}^n X_i - n\mu}{\sigma\sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1).
+\end{equation}
+Das bedeutet, dass für große $n$ die Summe der ZV näherungsweise normalverteilt ist mit Erwartungswert $n\mu$ und Varianz n$\sigma^2$:
+
+\begin{equation}
+\label{formel2}
+\sum_{i=1}^{n} X_{i} \sim \mathcal{N}\left(n \mu, n \sigma^{2}\right).
+\end{equation}
+
+\subsection{Erklärung der Standardisierung}
+Um die Summe der ZV in eine Standardnormalverteilung zu transformieren, subtrahiert man den Erwartungswert $n \mu$ und teilt durch die Standardabweichung $\sigma \sqrt{n}$. Dies führt zu der obigen Formel  \eqref{formel1}. Die Darstellung \eqref{formel2} ist für $n \rightarrow \infty$ nicht wohldefiniert.
+
+
+\subsection{Anwendungen}
+Der ZGS wird in vielen Bereichen der Statistik und der Wahrscheinlichkeitstheorie angewendet. Typische Beispiele sind:
+\begin{itemize}
+    \item Die Schätzung von Mittelwerten
+    \item Fehlerabschätzung in Experimenten
+\end{itemize}
+\newpage
+\section{Bearbeitung zur Aufgabe 1} 
+\subsection{Datenverarbeitung}
+\subsubsection{Aufbau der Daten}
+ Zu Beginn machen wir uns mit dem Aufbau der uns zur Verfügung gestellten Daten vertraut. Es handelt sich um eine .csv Datei bestehend aus 36440 Zeilen und zwölf Spalten. Bei dem Datensatz handelt es sich um einen Fahrradverleih, an verschiedenen Standorten, mit den jeweils aufgezeichneten Wetterdaten für ein ganzes Jahr. \\
+ 
+\subsubsection{Tabellenkalkulation in Excel}
+Für die Tabellenkalkulation wählen wir Excel. Als erstes importieren wir die .csv Datei dadurch, dass wir auf den Reiter „Daten“ gehen und die Funktion „Aus Text/CSV“ verwenden. Wir öffnen die Datei indem wir auf „Importieren“ klicken. \\ In den nächsten Schritten müssen wir ein paar Veränderungen vornehmen. In dem sich öffnendem Fenster wählen wir „Basierend auf dem gesamtem Datenset“ anstatt „Basierend auf den ersten 200 Zeilen. 
+Anschließend passen wir den Datentyp für die jeweiligen Attribute an und wählen beim Reiter „Transformieren“ „Analysieren“ die Funktion „JSON“ anstelle von „XML“ um Kommas, anstatt von Punkten zu haben. \\ Jetzt klicken wir auf „Schließen und laden“ und erhalten unseren Datensatz in Tabellenform, wie in Abbildung \ref{Bild1} erkennbar.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{COMETBild1.jpg}
+    \caption{Unsortierte Tabelle}
+    \label{Bild1}
+\end{figure}
+Zuletzt filtern wir unsere Tabelle noch, damit wir ausschließlich die für unsere Gruppe relevanten Daten haben und sortieren die Spalte „average temperature“ absteigend, um die höchste durchschnittliche Temperatur ganz oben zu erhalten (siehe Abbildung \ref{Bild2}). \\
+\subsubsection{Ergebnis}
+ Das Ergebnis sind 83 Grad Fahrenheit. Umgerechnet in Grad Celsius mit der Formel (83 °F -  32) × 5:9 erhalten wir 28,33 Grad Celsius.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{COMETBild3.jpg}
+    \caption{Nach höchster durchschnittlicher Temperatur sortierte Tabelle}
+    \label{Bild2}
+\end{figure}
+
+\subsection{Datenhaltung}
+\subsubsection{Entwurf Schema Datenbank}
+Wir erstellen nun ein neues Datenbankschema, um mit den vorhandenen Daten weiterzuarbeiten. Hierfür richten wir eine Datenbank ein, die wir „COMETAbgabe1“ nennen, und erstellen darin zwei Tabellen. \\
+In der ersten Tabelle haben wir die Attribute „ID“ und „Station“, mit „ID“ als Primärschlüssel und „Station“ als Nichtschlüssel-Attribut, welches vom Primärschlüssel abhängig ist. Diese Tabelle nennen wir „Stationen“.
+Die zweite nennen wir „Verleih“ und ordnen dieser die Attribute „ID, group, station, weather\_date, day\_of\_year, day\_of\_week, month\_of\_year, precipitation, windspeed, min\_temperature, avergae\_temperature, max\_temperature, count“ zu. „ID“ ist hier wieder der Primärschlüssel.\\ In unserem Datensatz sind nur atomare Werte, weshalb die erste Normalform erfüllt ist. Also schauen wir ob die zweite Normalform auch erfüllt ist. Wenn die erste Normalform erfüllt ist und jedes Nichtschlüsselattribut nur von dem Primärschlüssel selbst abhängig ist, nicht von einer Teilmenge dessen, dann ist die zweite Normalform ebenfalls erfüllt.
+\subsubsection{Umsetzung in SQL}
+Unsere Datenbank und Tabellen definieren wir mit dem DDL-Teil von SQL, mit folgenden Statements:\\ \\
+CREATE DATABASE COMETAbgabe1; \\
+CREATE TABLE Stationen( \\
+ID INTEGER PRIMARY KEY AUTOINCREMENT, \\
+Station TEXT NOT NULL \\
+); \\
+CREATE TABLE Verleih( \\
+ID INTEGER PRIMARY KEY NOT NULL, \\
+group INTEGER \\
+station TEXT NOT NULL, \\
+weather\_date TEXT NOT NULL, \\
+day\_of\_year INTEGER \\
+day\_of\_week INTEGER \\
+month\_of\_year INTEGER \\
+precipitation REAL, \\
+windspeed REAL, \\
+min\_temperature INTEGER, \\
+average\_temperature INTEGER, \\
+max\_temperature INTEGER, \\
+count INTEGER, \\
+); \\ \\
+Als nächstes importieren wir die .csv Datei in SQLite. Dafür nutzen wir das DBMS und klicken auf „Datei“, „Import“ und dann auf „Tabelle aus CSV Datei“. Folgendes Statement nutzen wir um die Daten in die passenden Tabellen zu importieren: \\ \\
+INSERT INTO Stationen (Station) \\
+SELECT DISTINCT station \\
+FROM Capital\_bikeshare\_data\_2022\_with\_NAs; \\
+INSERT INTO Verleih (group, station, weather\_date, day\_of\_year, day\_of\_month, month\_of\_year, precipitation, windspeed, min\_temperature, average\_temperature, max\_temperature, count) SELECT group, station, weather\_date, day\_of\_year, day\_of\_month, month\_of\_year, precipitation, windspeed, min\_temperature, average\_temperature, max\_temperature, count FROM bike\_sharing\_data\_(with\_NAs); \\
+
+\subsubsection{Ergebnis}
+ Zuletzt formulieren wir eine Abfrage, um aus den unserer Gruppe zugeordneten Daten die höchste mittlere Temperatur in Grad Celsius herauszufiltern. Die Abfrage lautet \\ \\
+SELECT ((MAX(average\_temperature) -32)*5/9) \\
+AS max\_average\_temperature \\
+FROM Verleih \\
+WHERE Name = “ Broadway & W 56 St “ AND average\_temperature != “NA“; \\ \\
+Wir erhalten das selbe Ergebnis, wie mit der Tabellenkalkulation, von 28,33 Grad Celsius als höchste Durchschnittstemperatur.
+
+\newpage
+\begin{thebibliography}{1}
+\bibitem{1}
+Achim Klenke. \emph{Wahrscheinlichkeitstheorie}, Springer, 3. edition, 2013.
+\end{thebibliography}
+
+
+\end{document}
