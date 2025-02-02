@@ -1,0 +1,110 @@
+#funktion der simulation
+wichtel_simulation <- function(n, iterations = 10000){
+  count <- 0 #zahlvariable wird auf 0 initialisiert
+  
+  # schleife für die Simulation
+  for (i in 1:iterations) {
+    gifts <- sample(1:n, n, replace = FALSE) # zufällige verteilung der geschenke
+    
+    # zur Überprüfung ob jemand sein eigenes Geschenk erhalten hat
+    if (any(gifts == 1:n)){
+      count <- count + 1
+    }
+  }
+  # berechnung der wahrscheinlichkeit, das eine person ihr eigenes geschenk erhält
+  wahrscheinlichkeit <- count / iterations
+  return(wahrscheinlichkeit)
+}
+#ergebnis der simulation für n = 8
+100 - wichtel_simulation(8) * 100 #berechnung der wahrscheinlichkeit dass niemand sein eigenes geschenk erhält.
+
+#funktion der simulation
+wichtel_unglueck <- function(n, k, iterationen = 10000) {
+  count_unglueck <- 0
+  
+  for (i in 1:iterationen) {
+    geschenke <- sample(1:n, n, replace = FALSE) # zufällige verteilung der geschenke
+    
+    if (sum(geschenke == seq_along(geschenke)) >= k) {
+      count_unglueck <- count_unglueck + 1
+    }
+  } 
+  probability <- count_unglueck / iterationen
+  return(probability)
+}
+wichtel_unglueck(8,1) * 100
+wichtel_unglueck(8,2) * 100
+
+#paket "testthat" installieren
+install.packages("testthat")
+library(testthat)
+
+#testfall 1
+test_that("wichtel unglueck mit n=1 und k=1 gibt immer 1 zurück", { 
+  result <- wichtel_unglueck(1, 1)
+  expect_equal(result, 1)
+})
+
+#testfall 2
+test_that("wichtel unglueck mit iterationen 'ganz viele' gibt immer Fehler zurück", {
+  expect_error(wichtel_unglueck(8, 1, iterationen = "ganz viele"))
+})
+
+#testfall 3
+test_that("wichtel_unglueck ergibt immer eine wahrscheinlichkeit zwischen 0 und 1 ",{
+  result1 <- wichtel_unglueck(5, 1)
+  expect_true(result1 >= 0 && result1 <= 1 )
+})
+
+#testfall 4
+test_that("wichtel unglueck gibt 0 zurück wenn das gegebene k größer als n ist",{
+  result2 <- wichtel_unglueck(5,6)
+  expect_equal(result2,0)
+})
+
+data <- read.csv(
+  file = "/Users/Luka/Desktop/COMET2/bike_sharing_data_with_NAs.csv",
+  header = TRUE,
+  sep = ",",
+  dec = "."
+)
+#Anzahl der Datensätze mit 12 Variablen
+dim(data)
+
+#Anzahl der Datensätze
+nrow(data)
+
+#Anzahl der Variablen
+ncol(data)
+
+#Auflistung der Variablennamen
+colnames(data)
+
+#Ausgabe der ersten 6 Zeilen des Datensatzes
+head(data)
+
+#Ausgabe der letzen 6 Zeilen des Datensatzes
+tail(data)
+
+#Ausgabe der verschiedenen Daten je Variable
+str(data)
+
+#Selektion des für uns relevanten Teils der Daten
+my_station <- subset(data, station == "Broadway & W 56 St")
+
+#zur überprüfung ob die Daten NAs enthalten 
+anyNA(my_station)
+
+#zur überprüfung in welchen Spalten die Daten NAs enthalten
+apply(my_station, 2, anyNA)
+
+#zur eliminierung der spalten it NAs
+my_station_neu <- my_station[complete.cases(my_station),]
+
+#zur überprüfung ob der datensatz nun frei von NAs ist
+anyNA(my_station_neu)
+
+write.csv(
+  x = my_station_neu,
+  file = ""
+)
