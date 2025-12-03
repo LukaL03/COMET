@@ -1,0 +1,51 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\title{Dokumentation des Datensatzes}
+\author{Erika Mustermann \and Max Mustermann}
+\date{31. Oktober 2025}
+\begin{document}
+\maketitle
+\begin{abstract}
+Dieses Dokument beinhaltet eine kurze Dokumentation des \textit{bikeshare} Datensatzes. Der Zweck der Datenerhebung, die Daten im Allgemeinen und die einzelnen Variablen im Speziellen werden vorgestellt.
+\end{abstract}
+\tableofcontents
+\section{Einleitung}
+Fahrradverleihsysteme stellen eine moderne Weiterentwicklung herkömmlicher Leihfahrräder dar, wobei der gesamte Prozess, von der Registrierung über die Ausleihe bis zur Rückgabe, automatisiert abläuft. Diese Systeme ermöglichen es den Nutzerinnen und Nutzern, Fahrräder an einer Station auszuleihen und an einer anderen bequem wieder abzugeben. Aufgrund ihres Beitrags zum Umweltschutz und zur Förderung der Gesundheit stoßen Fahrradverleihsysteme bei Kommunen auf wachsendes Interesse.
+\section{Daten}
+Neben ihrem praktischen Nutzen im städtischen Alltag sind auch die durch diese Systeme erzeugten Daten aus wissenschaftlicher Sicht interessant. Im Gegensatz zu anderen Verkehrsmitteln wie Bus oder U-Bahn werden bei Fahrradverleihsystemen die Reisedauer sowie Start- und Zielpunkte jeder Fahrt präzise erfasst. Dadurch fungieren sie als eine Art virtuelles Sensornetzwerk, das Informationen über die Mobilität innerhalb einer Stadt liefert.
+\subsection{Beobachtungen}
+Der vorliegende Datensatz umfasst 361 bis 365 Beobachtungen aus dem Jahr 2023 von 100 Leihstationen in der Stadt New York, Amerika.
+\subsection{Variablen}
+Es sind 12 Variablen verfügbar, die in Abschnitt~\ref{sec:variablen} näher beschrieben werden.
+\subsection{Datenausschnitt}
+\begin{center}
+\begin{tabular}{c|c|c} 
+Station & Datum & Anzahl \\ \hline
+    1 Ave \& E 18 St & 01.01.2023 & 117 \\
+    $\vdots$ & $\vdots$ & $\vdots$ \\
+    William St \& Pine St & 31.12.2023 & 40
+\end{tabular}
+\end{center}
+\section{Variablen im Einzelnen} \label{sec:variablen}
+\subsection{Benennung}
+Die Variablen sind wie folgt benannt:
+\begin{description}
+    \item[station] Der Name der Fahrradstation\footnote{Die Stationsnamen sind im Datensatz abgekürzt}
+    \item[date] Das Datum
+    \item[precipitation] Die Niederschlagsmenge in Zoll
+    \item[windspeed] Windgeschwindigkeit in Meilen pro Stunde
+    \item[average\_temperature] Durchschnittliche Tagestemperatur in Fahrenheit
+    \item[count] Anzahl ausgeliehener Fahrräder
+\end{description}
+\noindent Zusätzlich dokumentieren die Variablen \textbf{day\_of\_year}, \textbf{day\_of\_week} und \textbf{month\_of\_year} um welchen Jahrestag, Wochentag und Monat es sich bei dem Datum handelt. Die Variablen \textbf{min\_temperature} und \textbf{max\_temperature} geben die Temperaturspanne des Tages an. 
+\paragraph{Hinweis:} \textbf{group} kennzeichnet die jeweilige Gruppenzugehörigkeit.
+\subsection{Einheiten}
+Die Variablen liegen im amerikanischen Einheitensystem vor. Insbesondere die Maßeinheiten Meilen pro Stunde für die Windgeschwindigkeit und Zoll für die Niederschlagsmenge sind ungewohnt. Sie können wie folgt umgerechnet werden:
+\begin{align*}
+    1~\text{mph} &= 1.60934~\text{km/h} \\
+    1~\text{inch} &= 25.4~\text{l/m$ ^2$ }
+\end{align*}
+\end{document}
